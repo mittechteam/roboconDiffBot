@@ -1,9 +1,7 @@
 # Differential Drive based Robot for Robocon 2023
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<!-- ROS2 Badge -->
 [![ROS2](https://img.shields.io/badge/ROS2-Humble-blue)](https://index.ros.org/doc/ros2/Releases/Release-Humble-Hawksbill/)
-<!-- Raspberry pi Badge -->
 [![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-4B-red)](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
 
 
