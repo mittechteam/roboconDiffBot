@@ -11,7 +11,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   REGISTRY: ghcr.io
-  IMAGE_NAME: mtt-ros2-dev
+  IMAGE_NAME: mittechteam/mtt-ros2-dev
 
 jobs:
   build:
