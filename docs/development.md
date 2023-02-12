@@ -20,13 +20,6 @@ $ docker run -it -d --name mttros2 -v $(pwd):/app -w /app -p 8080:8080 ghcr.io/m
 
 Open the browser and go to http://localhost:8080/vnc.html.
 
-### Stop
-
-Stop the Docker container:
-
-```bash
-$ docker stop mttros2
-```
 ---
 
 ## Compiling ROS2 workspace
