@@ -41,9 +41,10 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          flavor: |
-            latest=auto
-            suffix=-${{ github.sha }}
+          labels: |
+            maintainer=RahulKatiyar
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push
         uses: docker/build-push-action@v4

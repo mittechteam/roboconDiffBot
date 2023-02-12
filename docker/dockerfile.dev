@@ -1,8 +1,12 @@
 FROM ubuntu:jammy
 
 # Add the following labels
-LABEL Description="MTT ROS Development container" Vendor="MTT" Version="1.0"
+LABEL org.opencontainers.image.description="MTT ROS Development container"
+LABEL org.opencontainers.image.title="MttRosDev"
+LABEL org.opencontainers.image.vendor="MIT Tech Team"
+LABEL org.opencontainers.image.source="https://github.com/mittechteam/roboconDiffBot"
 LABEL maintainer="rahulkatiyar1995@gmail.com"
+LABEL org.opencontainers.image.licenses="MIT"
 
 # setup timezone
 RUN echo 'Etc/UTC' > /etc/timezone && \
