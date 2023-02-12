@@ -3,7 +3,7 @@
 #
 # Author:  Rahul Katiyar
 # ------------------------------------------------
-name: Build Docker container on Request
+name: Build Docker
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   REGISTRY: ghcr.io
-  IMAGE_NAME: mtt-ros2-humble-dev
+  IMAGE_NAME: mtt-ros2-dev
 
 jobs:
   build:
@@ -46,9 +46,10 @@ jobs:
             suffix=-${{ github.sha }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
-          context: docker/.
+          context: docker
+          file: dockerfile.dev
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
