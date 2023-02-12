@@ -6,12 +6,13 @@
 
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Hardware](docs/hardware.md)
-- [Software](docs/software.md)
-- [Usage](docs/usage.md)
-- [Contributing](#contributing)
-- [License](#license)
+- [Introduction](#introduction): Introduction to the project
+- [Development](docs/development.md): Guide to development using Docker
+- [Hardware](docs/hardware.md): Hardware specifications
+- [Software](docs/software.md): Software specifications
+- [Usage](docs/usage.md): Usage of the project
+- [Contributing](#contributing): How to contribute to the project
+- [License](#license): License of the project
 
 
 ## Introduction
