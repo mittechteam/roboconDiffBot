@@ -25,25 +25,39 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV ROS_DISTRO humble
 
-RUN apt-get update && \
-    apt-get install -q -y --no-install-recommends \
-    $(cat /tmp/packages.list) && \
-    rm -rf /var/lib/apt/lists/*
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+
+# Install the packages from packages.list
+# cache apt
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update && \
+  apt-get install -q -y --no-install-recommends \
+  $(cat /tmp/packages.list) && \
+  rm -rf /var/lib/apt/lists/*
+
+# Install NoVNC from source
+RUN wget -O - https://github.com/novnc/noVNC/archive/v1.4.0.tar.gz | tar -xzv -C /root/ && mv /root/noVNC-1.4.0 /root/novnc
 
 # install python packages
-RUN pip3 install -U \
-    argcomplete
+# RUN pip3 install -U \
+#     argcomplete
 
 # This is a workaround for pytest not found causing builds to fail
 # Following RUN statements tests for regression of https://github.com/ros2/ros2/issues/722
-RUN pip3 freeze | grep pytest \
-    && python3 -m pytest --version
+# RUN pip3 freeze | grep pytest \
+#     && python3 -m pytest --version
 
 # Install the ros2 packages
 # humble full desktop install
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-humble-desktop-full=0.10.0-1* \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     ros-humble-desktop-full=0.10.0-1* \
+#     && rm -rf /var/lib/apt/lists/*
+
+# Install lxde
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     lxde \
+#     && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
 # RUN rosdep init \
@@ -61,11 +75,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Add the following environment variables
 ENV HOME='/root'
 ENV DEBIAN_FRONTEND=noninteractive
-ENV DISPLAY=:0.0
+ENV DISPLAY=:1
 ENV DISPLAY_WIDTH=1920
 ENV DISPLAY_HEIGHT=1080
-ENV RUN_XTERM=yes
-ENV RUN_FLUXBOX=yes
+# ENV RUN_XTERM=yes
 
 # Copy Supervisor configuration file
 COPY supervisord.conf /app/supervisord.conf
@@ -81,3 +94,4 @@ CMD ["/app/scripts/entrypoint.sh"]
 
 # Add the following ports
 EXPOSE 8080
+EXPOSE 5900
