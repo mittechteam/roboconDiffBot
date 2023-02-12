@@ -1,0 +1,95 @@
+FROM ubuntu:jammy
+
+# Add the following labels
+LABEL Description="MTT ROS Development container" Vendor="MTT" Version="1.0"
+LABEL maintainer="rahulkatiyar1995@gmail.com"
+
+# setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata dirmngr gnupg2 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install the packages from packages.list
+COPY packages.list /tmp/packages.list
+
+# setup sources.list
+RUN echo "deb http://packages.ros.org/ros2/ubuntu jammy main" > /etc/apt/sources.list.d/ros2-latest.list
+
+# setup keys
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+# setup environment
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+ENV ROS_DISTRO humble
+
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+
+# adding Firefox PPA
+RUN apt-get update && apt-get install -q -y --no-install-recommends \
+    software-properties-common \
+    && add-apt-repository ppa:ubuntu-mozilla-security/ppa
+
+# Install the packages from packages.list
+# cache apt
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update && \
+  apt-get install -q -y --no-install-recommends \
+  $(cat /tmp/packages.list) && \
+  rm -rf /var/lib/apt/lists/*
+
+# Install NoVNC from source
+RUN wget -O - https://github.com/novnc/noVNC/archive/v1.4.0.tar.gz | tar -xzv -C /root/ && mv /root/noVNC-1.4.0 /root/novnc
+
+# install python packages
+RUN pip3 install -U \
+    argcomplete
+
+# This is a workaround for pytest not found causing builds to fail
+# Following RUN statements tests for regression of https://github.com/ros2/ros2/issues/722
+RUN pip3 freeze | grep pytest \
+    && python3 -m pytest --version
+
+# Install the ros2 packages
+# humble full desktop install
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-humble-desktop-full=0.10.0-1* \
+    && rm -rf /var/lib/apt/lists/*
+
+# bootstrap rosdep
+# RUN rosdep init \
+#     && rosdep update --rosdistro $ROS_DISTRO
+
+# setup colcon mixin and metadata
+# RUN colcon mixin add default \
+#       https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
+#     colcon mixin update && \
+#     colcon metadata add default \
+#       https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
+#     colcon metadata update
+
+
+# Add the following environment variables
+ENV HOME='/root'
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DISPLAY=:1
+ENV DISPLAY_WIDTH=1920
+ENV DISPLAY_HEIGHT=1080
+
+# Copy Supervisor configuration file
+COPY supervisord.conf /app/supervisord.conf
+
+# Copy the conf.d directory
+COPY conf.d /app/conf.d
+
+# Copy the scripts directory
+COPY scripts /app/scripts
+
+# Run the entrypoint.sh script
+CMD ["/app/scripts/entrypoint.sh"]
+
+# Add the following ports
+EXPOSE 8080
