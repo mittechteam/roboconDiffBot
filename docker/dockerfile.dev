@@ -34,8 +34,8 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloa
 # adding Firefox PPA
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     software-properties-common \
-    && add-apt-repository ppa:ubuntu-mozilla-security/ppa
-
+    && add-apt-repository "deb http://ppa.launchpad.net/ubuntu-mozilla-security/ppa/ubuntu jammy main" 
+    
 # Install the packages from packages.list
 # cache apt
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
