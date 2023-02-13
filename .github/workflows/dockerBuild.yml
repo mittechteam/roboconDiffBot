@@ -9,7 +9,6 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_BUILDKIT: 1
   REGISTRY: ghcr.io
   IMAGE_NAME: mittechteam/mtt-ros2-dev
 
