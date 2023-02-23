@@ -15,7 +15,7 @@ This document describes how to develop using Docker.
 Run the Docker container:
 
 ```bash
-$ docker run -it -d --name mttros2 -v $(pwd):/app -w /app -p 8080:8080 ghcr.io/mittechteam/mtt-ros2-dev
+$ docker run -it -d --name mttros2 -v $(pwd):/ros_ws -p 8080:8080 ghcr.io/mittechteam/mtt-ros2-dev
 ```
 
 Open the browser and go to http://localhost:8080/vnc.html.
