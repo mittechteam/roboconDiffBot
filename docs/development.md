@@ -14,14 +14,29 @@ This document describes how to develop using Docker.
 
 Run the Docker container:
 
-```bash
+```shell
+$ cd <path_to_roboconDiffBot>
 $ docker run -it -d --name mttros2 -v $(pwd):/ros_ws -p 8080:8080 ghcr.io/mittechteam/mtt-ros2-dev
 ```
 
 Open the browser and go to http://localhost:8080/vnc.html.
 
----
+### Setup VSCode for Development
 
+#### Install Extensions
+
+Install the following extensions:
+
+- [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [Remote - Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
+
+Attach to the running container:
+
+- Open the Command Palette (Ctrl+Shift+P)
+- Select `Dev Containers: Attach to Running Container...`
+- Select the running container `mttros2`
+
+---
 ## Compiling ROS2 workspace
 
 inside the docker container open a terminal and run the following commands:
