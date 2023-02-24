@@ -7,6 +7,7 @@
     <!-- Components -->
     <xacro:include filename="$(find robot_description)/urdf/components/inertial_macros.xacro" />
     <xacro:include filename="$(find robot_description)/urdf/components/gazebo_materials.xacro" />
+    <xacro:include filename="$(find robot_description)/urdf/components/gazebo_physics.xacro" />
 
     <!-- Sensors -->
     <!-- <xacro:include filename="$(find robot_description)/sensors/generic_laser.urdf.xacro" />
