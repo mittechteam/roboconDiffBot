@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="base_link_color" value="Gazebo/White" />
+    <xacro:property name="camerad435i_link_color" value="Gazebo/White" />
+    <xacro:property name="camerat265_link_color" value="Gazebo/White" />
+    <xacro:property name="lidar_color" value="Gazebo/LightBlueLaser" />
+    <xacro:property name="imu_link_color" value="Gazebo/Black" />
+    <xacro:property name="wheels_link_color" value="Gazebo/Black" />
+    <xacro:property name="casterwheel_link_color" value="Gazebo/Blue" />
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1" />
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1" />
+    </material>
+
+    <material name="gray">
+        <color rgba="0.3 0.3 0.3 1" />
+    </material>
+
+    <material name="yellow">
+        <color rgba="1 1 0.5 1" />
+    </material>
+
+    <gazebo reference="base_link">
+        <material>${base_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="camerad435i_link">
+        <material>${camerad435i_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="imu_link">
+        <material>${imu_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="rightwheel_link">
+        <material>${wheels_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="leftwheel_link">
+        <material>${wheels_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="casterwheel_link">
+        <material>${casterwheel_link_color}</material>
+    </gazebo>
+
+    <gazebo reference="lidar_link">
+        <material>${lidar_color}</material>
+    </gazebo>
+
+</robot>
