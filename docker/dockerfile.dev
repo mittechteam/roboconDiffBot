@@ -17,6 +17,7 @@ RUN echo 'Etc/UTC' > /etc/timezone && \
 
 # Install the packages from packages.list
 COPY packages.list /tmp/packages.list
+COPY rosPkgs.list /tmp/rosPkgs.list
 
 # setup sources.list
 RUN echo "deb http://packages.ros.org/ros2/ubuntu jammy main" > /etc/apt/sources.list.d/ros2-latest.list
@@ -61,6 +62,11 @@ RUN pip3 freeze | grep pytest \
 # humble full desktop install
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-desktop-full=0.10.0-1* \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install the ros2 packages from rosPkgs.list
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    $(cat /tmp/rosPkgs.list) \
     && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
