@@ -1,4 +1,11 @@
-FROM ubuntu:jammy
+####################################
+# MTT ROS Development Container
+####################################
+
+####################################
+# Base Image
+####################################
+FROM ubuntu:jammy AS base
 
 # Add the following labels
 LABEL org.opencontainers.image.description="MTT ROS Development container"
@@ -99,7 +106,7 @@ COPY conf.d /app/conf.d
 COPY scripts /app/scripts
 
 # Run the entrypoint.sh script
-CMD ["/app/scripts/entrypoint.sh"]
+ENTRYPOINT ["/app/scripts/entrypoint.sh"]
 
 # Add the following ports
 EXPOSE 8080
