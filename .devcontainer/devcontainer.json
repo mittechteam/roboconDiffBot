@@ -17,6 +17,15 @@
 		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
 		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
 	},
+	"overrideCommand": false,
+	// Forward the NoVNC port so you can access it in a browser on the host.
+	"forwardPorts": [8080],
+	"portsAttributes": {
+		"8080": {
+			"label": "NoVNC Display",
+			"onAutoForward": "notify"
+		}
+	},
 	// Set *default* container specific settings.json values on container create.
 	"customizations": {
 		"vscode": {
