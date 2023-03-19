@@ -1,15 +1,13 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
-	"name": "MTT ROS2 dev",
+	"name": "MTT ROS2 Development",
 	"image": "ghcr.io/mittechteam/mtt-ros2-dev",
-	"remoteUser": "mtt",
 	"runArgs": [
 		"--network=host",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt=seccomp:unconfined",
 		"--security-opt=apparmor:unconfined",
 		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
-		"--volume=/mnt/wslg:/mnt/wslg",
 		"--ipc=host"
 	],
 	"containerEnv": {
