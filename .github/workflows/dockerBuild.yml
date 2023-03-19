@@ -7,6 +7,12 @@ name: Build Docker
 
 on:
   workflow_dispatch:
+  # build on push to main branch when Dockerfile is changed
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker/**'
 
 env:
   REGISTRY: ghcr.io
