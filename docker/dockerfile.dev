@@ -106,7 +106,7 @@ COPY conf.d /app/conf.d
 COPY scripts /app/scripts
 
 # Run the entrypoint.sh script
-ENTRYPOINT ["/app/scripts/entrypoint.sh"]
+CMD ["/app/scripts/entrypoint.sh"]
 
 # Add the following ports
 EXPOSE 8080
