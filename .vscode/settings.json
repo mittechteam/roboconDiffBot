@@ -37,7 +37,6 @@
     "cmake.sourceDirectory": "${workspaceFolder}/robot_description",
     "terminal.integrated.cwd": "..",
     "cSpell.words": [
-        "RTPS",
         "athackst",
         "autopep",
         "cmake",
@@ -56,9 +55,12 @@
         "rosdistro",
         "rosidl",
         "RTPS",
+        "rviz",
         "uncrustify",
+        "urdf",
         "Wextra",
         "Wpedantic",
+        "xacro",
         "xmllint"
     ],
     "cSpell.allowCompoundWords": true,
