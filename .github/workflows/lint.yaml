@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         # We exclude cppcheck due to https://github.com/ament/ament_lint/pull/345
-        linter: [cpplint, uncrustify, xmllint]
+        linter: [cppcheck, cpplint, flake8, lint_cmake, pep257, uncrustify, xmllint]
     steps:
       - uses: actions/checkout@v3
       - uses: ros-tooling/setup-ros@0.6.1
