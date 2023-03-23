@@ -18,8 +18,188 @@
             "command": "rm -fr build install log; py3clean .",
             "problemMatcher": []
         },
-         // Workspace editing tasks
-         {
+        {
+            "label": "fix",
+            "detail": "Reformat files with uncrustify.",
+            "type": "shell",
+            "command": "ament_uncrustify --reformat ${workspaceFolder}",
+            "problemMatcher": []
+        },
+        {
+            "label": "uncrustify",
+            "detail": "Lint files with uncrustify.",
+            "type": "shell",
+            "command": "ament_uncrustify ${workspaceFolder}",
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "owner": "uncrustify",
+                    "source": "uncrustify",
+                    "fileLocation": "relative",
+                    "pattern": [
+                        // just the file name message
+                        {
+                            "regexp": "^(.*)'(.*)':",
+                            "kind": "file",
+                            "file": 2,
+                            "message": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "cpplint",
+            "detail": "Lint files with cpplint.",
+            "type": "ament",
+            "task": "cpplint",
+            // include folder whose name start with "robot_" word
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_cpplint",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            },
+        },
+        {
+            "label": "cppcheck",
+            "detail": "Run static code checker cppcheck.",
+            "type": "ament",
+            "task": "cppcheck",
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_cppcheck",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            },
+            "options": {
+                "env": {
+                    "AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS": "1"
+                }
+            }
+        },
+        {
+            "label": "lint_cmake",
+            "detail": "Run lint on cmake files.",
+            "type": "ament",
+            "task": "lint_cmake",
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_lint_cmake",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+        {
+            "label": "flake8",
+            "detail": "Run flake8 on python files.",
+            "type": "ament",
+            "task": "flake8",
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_flake8",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+        {
+            "label": "pep257",
+            "detail": "Run pep257 on python files.",
+            "type": "ament",
+            "task": "pep257",
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_pep257",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+        {
+            "label": "xmllint",
+            "detail": "Run xmllint on xml files.",
+            "type": "ament",
+            "task": "xmllint",
+            "path": "${workspaceFolder}",
+            "problemMatcher": [
+                {
+                    "base": "$ament_xmllint",
+                    "fileLocation": [
+                        "autoDetect",
+                        "${workspaceFolder}"
+                    ]
+                }
+            ],
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "silent",
+                "clear": true
+            }
+        },
+        {
+            "label": "lint all",
+            "detail": "Run all linters.",
+            "dependsOn": [
+                "cppcheck",
+                "cpplint",
+                "flake8",
+                "lint_cmake",
+                "pep257",
+                "xmllint",
+                "uncrustify"
+            ],
+            "problemMatcher": []
+        },
+        // Workspace editing tasks
+        {
             "label": "new ament_cmake package",
             "detail": "Create a new ROS cpp package from a template.",
             "type": "shell",

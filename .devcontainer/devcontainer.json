@@ -8,8 +8,11 @@
 		"--security-opt=seccomp:unconfined",
 		"--security-opt=apparmor:unconfined",
 		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
-		"--ipc=host"
+		"--ipc=host",
+		"--name=mtt_ros2_dev"
 	],
+	"workspaceMount": "source=${localWorkspaceFolder},target=/ros2_ws/src,type=bind",
+	"workspaceFolder": "/ros2_ws/src",
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
 		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
@@ -19,7 +22,9 @@
 	},
 	"overrideCommand": false,
 	// Forward the NoVNC port so you can access it in a browser on the host.
-	"forwardPorts": [8080],
+	"forwardPorts": [
+		8080
+	],
 	"portsAttributes": {
 		"8080": {
 			"label": "NoVNC Display",
