@@ -44,7 +44,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time
             }],
             condition=IfCondition(PythonExpression([
-                LaunchConfiguration('vehicle'), " == 'MTT_robot'"
+                "'", LaunchConfiguration('vehicle'), "' == 'MTT_robot'"
             ]))
         ),
 
@@ -58,7 +58,7 @@ def generate_launch_description():
                 'use_sim_time': use_sim_time
             }],
             condition=IfCondition(PythonExpression([
-                LaunchConfiguration('vehicle'), " == 'MTT_robot'"
+                "'", LaunchConfiguration('vehicle'), "' == 'MTT_robot'"
             ]))
         ),
     ])

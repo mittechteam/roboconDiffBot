@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="robot_wheels"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
 <gazebo>
-    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+    <plugin name="ignition::gazebo::systems::DiffDrive" filename="libignition-gazebo-diff-drive-system.so">
 
-        <left_joint>left_wheel_joint</left_joint>
-        <right_joint>right_wheel_joint</right_joint>
+        <left_joint>leftwheel_joint</left_joint>
+        <right_joint>rightwheel_joint</right_joint>
         <wheel_separation>0.255</wheel_separation>
         <wheel_diameter>0.066</wheel_diameter>
 
@@ -19,7 +20,18 @@
         <publish_wheel_tf>true</publish_wheel_tf>
         <publish_odom_tf>true</publish_odom_tf>
         <publish_odom>false</publish_odom>
-
+        <publish_wheel_joint_state>true</publish_wheel_joint_state>
+        <topic>cmd_vel</topic>
+    </plugin>
+    <!-- <plugin name='joint_state_publisher' filename='libgazebo_ros_joint_state_publisher.so'>
+        <jointName>leftwheel_joint</jointName>
+        <jointName>rightwheel_joint</jointName>
+        <update_rate>50.0</update_rate>
+        <alwaysOn>true</alwaysOn>
+    </plugin> -->
+    <!-- Joint states plugin -->
+    <plugin name="ignition::gazebo::systems::JointStatePublisher" 
+        filename="libignition-gazebo-joint-state-publisher-system.so">
     </plugin>
 </gazebo>
 
