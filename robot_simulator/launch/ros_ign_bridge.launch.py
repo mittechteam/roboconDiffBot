@@ -56,11 +56,29 @@ def generate_launch_description():
             (['/world/', LaunchConfiguration('world'),
              '/model/', LaunchConfiguration('robot_name'),
              '/joint_state'],
-             '/joint_states'),
+             'joint_states'),
         ]
-        )
+    )
+    # clock bridge   
+    sync_time = Node(
+        package='ros_ign_bridge',
+        executable='parameter_bridge',
+        name='sync_time',
+        output='screen',
+        namespace='',
+        parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time')}],
+        arguments=[
+            ['/world/',LaunchConfiguration('world'),
+             '/clock@rosgraph_msgs/msg/Clock' +
+             '[ignition.msgs.Clock'],
+        ],
+        remappings=[
+            (['/world/',LaunchConfiguration('world'),'/clock'], '/clock'),
+        ]
+    )
 
     # Define LaunchDescription variable
     ld = LaunchDescription(ARGUMENTS)
     ld.add_action(cmd_vel_bridge)
+    ld.add_action(sync_time)
     return ld
