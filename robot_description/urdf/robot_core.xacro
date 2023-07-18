@@ -14,6 +14,8 @@
     <xacro:include filename="$(find robot_description)/sensors/depth_sensor.urdf.xacro" /> -->
 
     <xacro:property name="scale_ratio" value="1" />
+    <!-- Path Meshes -->
+    <xacro:property name="path_meshes" value="file://$(find robot_description)/urdf/meshes" />
 
     <!-- ****************** Robot bases ***************************  -->
     <!-- Define the center of the main robot chassis projected on the ground -->
@@ -26,16 +28,15 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/base_link.STL" />
+                    filename="${path_meshes}/base_link.stl" />
             </geometry>
             <material name="white">
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0.02 0 0.1" rpy="0 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/base_link.STL" />
+                <box size="0.5 0.345 0.377971" />
             </geometry>
         </collision>
         <xacro:inertial_box mass="5.79174328389446" x="-0.0374777931065171"
@@ -47,26 +48,25 @@
     <joint name="base_to_footprint" type="fixed">
         <parent link="base_footprint" />
         <child link="base_link" />
-        <origin xyz="0 0 -0.14" rpy="0 0 0" />
+        <origin xyz="0 0 1" rpy="0 0 0" />
     </joint>
 
 
     <!-- Right Wheel -->
     <link name="rightwheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="3.14 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/rightwheel.STL" />
+                <mesh scale="0.01 0.01 0.01"
+                    filename="${path_meshes}/rightwheel1.stl" />
             </geometry>
             <material name="black">
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0.03 0" rpy="1.5708 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/rightwheel.STL" />
+                <cylinder radius="0.082" length="0.06"/>
             </geometry>
         </collision>
         <xacro:inertial_box mass="1.0582" x="-1.2143E-17" y="0.033904" z="1.3878E-17">
@@ -76,28 +76,27 @@
 
     <!-- Right Wheel Joint -->
     <joint name="rightwheel_joint" type="continuous">
-        <origin xyz="-0.12418 0.185 -0.063" rpy="0 0 3.1416" />
+        <origin xyz="-0.12418 0.185 -0.063" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="rightwheel_link" />
-        <axis xyz="0 1 0" />
+        <axis xyz="0 -1 0" />
     </joint>
 
     <!-- Left Wheel -->
     <link name="leftwheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="3.14 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/leftwheel.STL" />
+                <mesh scale="0.01 0.01 0.01"
+                    filename="${path_meshes}/rightwheel1.stl" />
             </geometry>
             <material name="black">
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0.03 0" rpy="1.5708 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/leftwheel.STL" />
+                <cylinder radius="0.082" length="0.06"/>
             </geometry>
         </collision>
         <xacro:inertial_box mass="1.0582" x="-2.4286E-17" y="-0.033904" z="4.1633E-17">
@@ -119,16 +118,15 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/casterwheel.STL" />
+                    filename="${path_meshes}/casterwheel.stl" />
             </geometry>
             <material name="blue">
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="1.5708 0 0" />
             <geometry>
-                <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/casterwheel.STL" />
+                <cylinder radius="0.04" length="0.02"/>
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.10255" x="-0.0032546" y="0.0053327" z="0.013127">
@@ -138,25 +136,19 @@
 
     <!-- Caster Wheel Joint -->
     <joint name="casterwheel_joint" type="fixed">
-        <origin xyz="0.25029 -0.01098 -0.1075" rpy="0 0 0" />
+        <origin xyz="0.25029 -0.01098 -0.1375" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="casterwheel_link" />
         <axis xyz="0 0 0" />
     </joint>
 
     <!-- Lidar -->
-    <link name="lidar_link">
-        <inertial>
-            <origin xyz="0.00050486 -3.7855E-05 -0.025753" rpy="0 0 0" />
-            <mass value="0.2064" />
-            <inertia ixx="0.00011156" ixy="-1.2701E-07" ixz="-1.6019E-06" iyy="0.00010988"
-                iyz="1.201E-07" izz="0.0001391" />
-        </inertial>
+    <!-- <link name="lidar_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/lidar.STL" />
+                    filename="${path_meshes}/lidar.STL" />
             </geometry>
             <material name="gray">
             </material>
@@ -165,36 +157,30 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/lidar.STL" />
+                    filename="${path_meshes}/lidar.STL" />
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.2064" x="0.00050486" y="-3.7855E-05" z="-0.025753">
             <origin xyz="0.00050486 -3.7855E-05 -0.025753" rpy="0 0 0" />
         </xacro:inertial_box>
-    </link>
+    </link> -->
 
     <!-- Lidar Joint -->
-    <joint name="lidar_joint" type="fixed">
+    <!-- <joint name="lidar_joint" type="fixed">
         <origin xyz="0.00082049 0.00875 0.12332" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="lidar_link" />
         <axis xyz="0 0 1" />
-    </joint>
+    </joint> -->
 
 
     <!-- IMU -->
-    <link name="imu_link">
-        <inertial>
-            <origin xyz="-0.015015 -0.00012812 0.00021369" rpy="0 0 0" />
-            <mass value="0.05157" />
-            <inertia ixx="1.5728E-05" ixy="-1.2026E-09" ixz="1.5815E-09" iyy="8.9379E-06"
-                iyz="-2.1887E-10" izz="1.4344E-05" />
-        </inertial>
+    <!-- <link name="imu_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/imu.STL" />
+                    filename="${path_meshes}/imu.STL" />
             </geometry>
             <material name="black">
             </material>
@@ -203,35 +189,29 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/imu.STL" />
+                    filename="${path_meshes}/imu.STL" />
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.05157" x="-0.015015" y="-0.00012812" z="0.00021369">
             <origin xyz="-0.015015 -0.00012812 0.00021369" rpy="0 0 0" />
         </xacro:inertial_box>
-    </link>
+    </link> -->
 
     <!-- IMU Joint -->
-    <joint name="imu_joint" type="fixed">
+    <!-- <joint name="imu_joint" type="fixed">
         <origin xyz="0.05082 -0.0047896 0.053918" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="imu_link" />
         <axis xyz="0 0 0" />
-    </joint>
+    </joint> -->
 
     <!-- Camera -->
-    <link name="camerad435i_link">
-        <inertial>
-            <origin xyz="0.0094812 3.7095E-05 -7.9734E-05" rpy="0 0 0" />
-            <mass value="0.032264" />
-            <inertia ixx="2.2098E-05" ixy="-1.4651E-10" ixz="2.902E-10" iyy="1.9467E-06"
-                iyz="8.3417E-11" izz="2.1858E-05" />
-        </inertial>
+    <!-- <link name="camerad435i_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/camerad435i.STL" />
+                    filename="${path_meshes}/camerad435i.STL" />
             </geometry>
             <material name="white">
             </material>
@@ -240,35 +220,29 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/camerad435i.STL" />
+                    filename="${path_meshes}/camerad435i.STL" />
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.032264" x="0.0094812" y="3.7095E-05" z="-7.9734E-05">
             <origin xyz="0.0094812 3.7095E-05 -7.9734E-05" rpy="0 0 0" />
         </xacro:inertial_box>
-    </link>
+    </link> -->
 
     <!-- Camera Joint -->
-    <joint name="camerad435i_joint" type="fixed">
+    <!-- <joint name="camerad435i_joint" type="fixed">
         <origin xyz="-0.20718 -0.08268 0.17016" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="camerad435i_link" />
         <axis xyz="0 0 0" />
-    </joint>
+    </joint> -->
 
     <!-- Camera -->
-    <link name="camerat265_link">
-        <inertial>
-            <origin xyz="0.0061266 3.8568E-05 -1.9004E-05" rpy="0 0 0" />
-            <mass value="0.030988" />
-            <inertia ixx="3.0221E-05" ixy="-1.6541E-10" ixz="4.8935E-11" iyy="1.9363E-06"
-                iyz="9.2265E-11" izz="2.9002E-05" />
-        </inertial>
+    <!-- <link name="camerat265_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/camerat265.STL" />
+                    filename="${path_meshes}/camerat265.STL" />
             </geometry>
             <material name="white">
             </material>
@@ -277,20 +251,20 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
-                    filename="file://$(find robot_description)/urdf/meshes/camerat265.STL" />
+                    filename="${path_meshes}/camerat265.STL" />
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.030988" x="0.0061266" y="3.8568E-05" z="-1.9004E-05">
             <origin xyz="0.0061266 3.8568E-05 -1.9004E-05" rpy="0 0 0" />
         </xacro:inertial_box>
-    </link>
+    </link> -->
 
     <!-- Camera Joint -->
-    <joint name="camerat265_joint" type="fixed">
+    <!-- <joint name="camerat265_joint" type="fixed">
         <origin xyz="-0.20118 0.080908 0.16952" rpy="0 0 0" />
         <parent link="base_link" />
         <child link="camerat265_link" />
         <axis xyz="0 0 0" />
-    </joint>
+    </joint> -->
 
 </robot>
