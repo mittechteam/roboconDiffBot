@@ -72,5 +72,11 @@
         ".vscode",
         ".vscode-insiders",
         ".devcontainer/devcontainer.json"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
+    "git.enableCommitSigning": false
 }

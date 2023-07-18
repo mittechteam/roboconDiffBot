@@ -1,13 +1,15 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
 	"name": "MTT ROS2 Development",
-	"image": "ghcr.io/mittechteam/mtt-ros2-dev",
+	"image": "ghcr.io/mittechteam/humble-garden:latest",
 	"runArgs": [
 		"--network=host",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt=seccomp:unconfined",
 		"--security-opt=apparmor:unconfined",
 		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		// "--volume=${env:HOME}/.gnupg:/root/.gnupg",
+		// "--volume=${env:HOME}/.gnupg/S.gpg-agent:/root/.gnupg/S.gpg-agent",
 		"--ipc=host",
 		"--name=mtt_ros2_dev"
 	],
@@ -18,15 +20,14 @@
 		// "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
 		// "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
 		// "PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+		"QT_X11_NO_MITSHM": "1",
 		"LIBGL_ALWAYS_SOFTWARE": "1" // Needed for software rendering of opengl
 	},
 	"overrideCommand": false,
 	// Forward the NoVNC port so you can access it in a browser on the host.
-	"forwardPorts": [
-		8080
-	],
+	"forwardPorts": [80],
 	"portsAttributes": {
-		"8080": {
+		"80": {
 			"label": "NoVNC Display",
 			"onAutoForward": "notify"
 		}
@@ -40,6 +41,7 @@
 				"DotJoshJohnson.xml",
 				"ms-azuretools.vscode-docker",
 				"ms-iot.vscode-ros",
+				"ms-python.black-formatter",
 				"ms-python.python",
 				"ms-vscode.cpptools",
 				"redhat.vscode-yaml",
