@@ -4,55 +4,54 @@
   <xacro:property name="standard_friction" value="1.0" />
   <xacro:property name="caster_friction" value="0.01" />
   <xacro:property name="wheels_friction" value="1000.0" />
+  <xacro:property name="solid_object" value="100000000000000000.0" />
 
   <gazebo reference="base_link">
-    <mu1>${standard_friction}</mu1>
-    <mu2>${standard_friction}</mu2>
-    <selfCollide>true</selfCollide>
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
     <gravity>true</gravity>
   </gazebo>
 
   <gazebo reference="rightwheel_link">
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
     <mu1>${wheels_friction}</mu1>
     <mu2>${wheels_friction}</mu2>
-    <selfCollide>true</selfCollide>
   </gazebo>
 
   <gazebo reference="leftwheel_link">
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
     <mu1>${wheels_friction}</mu1>
     <mu2>${wheels_friction}</mu2>
-    <selfCollide>true</selfCollide>
   </gazebo>
 
   <gazebo reference="casterwheel_link">
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
     <mu1>${caster_friction}</mu1>
     <mu2>${caster_friction}</mu2>
-    <selfCollide>true</selfCollide>
   </gazebo>
 
   <gazebo reference="lidar_link">
-    <mu1>${standard_friction}</mu1>
-    <mu2>${standard_friction}</mu2>
-    <selfCollide>true</selfCollide>
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
   </gazebo>
 
   <gazebo reference="camerad435i_link">
-    <mu1>${standard_friction}</mu1>
-    <mu2>${standard_friction}</mu2>
-    <selfCollide>true</selfCollide>
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
   </gazebo>
 
   <gazebo reference="camerat265_link">
-    <mu1>${standard_friction}</mu1>
-    <mu2>${standard_friction}</mu2>
-    <selfCollide>true</selfCollide>
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
   </gazebo>
 
 
   <gazebo reference="imu_link">
-    <mu1>${standard_friction}</mu1>
-    <mu2>${standard_friction}</mu2>
-    <selfCollide>true</selfCollide>
+    <kp>${solid_object}</kp>
+    <kd>${solid_object}</kd>
   </gazebo>
 
 </robot>

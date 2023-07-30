@@ -6,7 +6,7 @@
     <xacro:property name="camerat265_link_color" value="Gazebo/White" />
     <xacro:property name="lidar_color" value="Gazebo/LightBlueLaser" />
     <xacro:property name="imu_link_color" value="Gazebo/Black" />
-    <xacro:property name="wheels_link_color" value="Gazebo/Black" />
+    <xacro:property name="wheels_link_color" value="Gazebo/Red" />
     <xacro:property name="casterwheel_link_color" value="Gazebo/Blue" />
 
     <material name="white">

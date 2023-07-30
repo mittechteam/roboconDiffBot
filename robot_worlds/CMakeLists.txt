@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(robot_simulator)
+project(robot_worlds)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,16 +7,16 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(robot_state_publisher REQUIRED)
-find_package(ros_gz_interfaces REQUIRED)
+# uncomment the following section in order to fill in
+# further dependencies manually.
+# find_package(<dependency> REQUIRED)
 
-# if(NOT ros_ign_interfaces_FOUND)
-#   message(WARNING "ros_ign_interfaces not found. Skipping ${PROJECT_NAME} package.")
-#   ament_package()
-#   return()
-# endif()
 
-install(DIRECTORY launch config
+################################################################################
+# Install
+################################################################################
+install(
+  DIRECTORY models params scripts worlds
   DESTINATION share/${PROJECT_NAME}
 )
 

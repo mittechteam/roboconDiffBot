@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="MTT_robot">
 
     <!-- Example link -->
-    <xacro:include filename="robot_core.xacro"/>
-    <xacro:include filename="$(find robot_description)/urdf/components/gazebo_control.xacro"/>
+    <xacro:include filename="robot_core2.xacro"/>
+    <!-- <xacro:include filename="$(find robot_description)/urdf/components/gazebo_control.xacro"/> -->
 
     <!-- <xacro:generic_laser>
         <xacro:insert_block name="laser_pose" />
