@@ -36,47 +36,17 @@
     },
     "cmake.sourceDirectory": "${workspaceFolder}/robot_description",
     "terminal.integrated.cwd": "..",
-    "cSpell.words": [
-        "athackst",
-        "autopep",
-        "cmake",
-        "cppcheck",
-        "cpplint",
-        "DCMAKE",
-        "deque",
-        "devcontainer",
-        "ints",
-        "noqa",
-        "pytest",
-        "rclcpp",
-        "rclpy",
-        "repos",
-        "rosdep",
-        "rosdistro",
-        "rosidl",
-        "RTPS",
-        "rviz",
-        "uncrustify",
-        "urdf",
-        "Wextra",
-        "Wpedantic",
-        "xacro",
-        "xmllint"
-    ],
-    "cSpell.allowCompoundWords": true,
-    "cSpell.ignorePaths": [
-        "**/package-lock.json",
-        "**/node_modules/**",
-        "**/vscode-extension/**",
-        "**/.git/objects/**",
-        ".vscode",
-        ".vscode-insiders",
-        ".devcontainer/devcontainer.json"
-    ],
     "python.analysis.typeCheckingMode": "basic",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "python.formatting.provider": "none",
-    "git.enableCommitSigning": false
+    "flake8.args": [
+        "--config=/opt/ros/humble/lib/python3.10/site-packages/ament_flake8/configuration/ament_flake8.ini"
+    ],
+    "git.enableCommitSigning": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true
 }

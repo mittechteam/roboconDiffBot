@@ -1,9 +1,9 @@
 # Launch file for Gazebo
-from ament_index_python.packages import get_package_share_directory
+# from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
 
 ARGUMENTS = [
     DeclareLaunchArgument('use_sim_time', default_value='true',
@@ -12,6 +12,7 @@ ARGUMENTS = [
     DeclareLaunchArgument('robot_name', default_value='mtt_robot',
                           description='Robot name'),
 ]
+
 
 def generate_launch_description():
     # ------------------------------------------
@@ -30,8 +31,7 @@ def generate_launch_description():
             # '-allow_renaming', 'true',
             '-topic', 'robot_description'],
         output='screen')
-            
-    
+
     ld = LaunchDescription(ARGUMENTS)
     ld.add_action(spawn_robot)
     return ld
