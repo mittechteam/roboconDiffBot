@@ -7,12 +7,12 @@
     <!-- Components -->
     <xacro:include filename="$(find robot_description)/urdf/components/inertial_macros.xacro" />
     <xacro:include filename="$(find robot_description)/urdf/components/gazebo_materials.xacro" />
-    <xacro:include filename="$(find robot_description)/urdf/components/gazebo_physics.xacro" />
+    <!-- <xacro:include filename="$(find robot_description)/urdf/components/gazebo_physics.xacro" /> -->
 
     <!-- Sensors -->
     <!-- <xacro:include filename="$(find robot_description)/sensors/generic_laser.urdf.xacro" />
     <xacro:include filename="$(find robot_description)/sensors/depth_sensor.urdf.xacro" /> -->
-
+    <xacro:property name="M_PI" value="3.14159"/>
     <xacro:property name="scale_ratio" value="1" />
     <!-- Path Meshes -->
     <xacro:property name="path_meshes" value="file://$(find robot_description)/urdf/meshes" />
@@ -26,19 +26,22 @@
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <geometry>
+            <!-- <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
                     filename="${path_meshes}/base_link.stl" />
+            </geometry> -->
+            <geometry>
+                <box size="0.5 0.345 0.377971" />
             </geometry>
             <material name="white">
             </material>
         </visual>
-        <collision>
+        <!-- <collision>
             <origin xyz="0.02 0 0.1" rpy="0 0 0" />
             <geometry>
                 <box size="0.5 0.345 0.377971" />
             </geometry>
-        </collision>
+        </collision> -->
         <xacro:inertial_box mass="5.79174328389446" x="-0.0374777931065171"
             y="-0.000742607274570373" z="0.0517646177576365">
             <origin xyz="-0.0374777931065171 -0.000742607274570373 0.0517646177576365" rpy="0 0 0" />
@@ -55,20 +58,23 @@
     <!-- Right Wheel -->
     <link name="rightwheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="3.14 0 0" />
-            <geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- <geometry>
                 <mesh scale="0.01 0.01 0.01"
                     filename="${path_meshes}/rightwheel1.stl" />
+            </geometry> -->
+            <geometry>
+                <cylinder radius="0.082" length="0.06"/>
             </geometry>
             <material name="black">
             </material>
         </visual>
-        <collision>
+        <!-- <collision>
             <origin xyz="0 0.03 0" rpy="1.5708 0 0" />
             <geometry>
                 <cylinder radius="0.082" length="0.06"/>
             </geometry>
-        </collision>
+        </collision> -->
         <xacro:inertial_box mass="1.0582" x="-1.2143E-17" y="0.033904" z="1.3878E-17">
             <origin xyz="-1.2143E-17 0.033904 1.3878E-17" rpy="0 0 0" />
         </xacro:inertial_box>
@@ -76,29 +82,32 @@
 
     <!-- Right Wheel Joint -->
     <joint name="rightwheel_joint" type="continuous">
-        <origin xyz="-0.12418 0.185 -0.063" rpy="0 0 0" />
+        <origin xyz="-0.12418 0.185 -0.063" rpy="-${M_PI/2} 0 0" />
         <parent link="base_link" />
         <child link="rightwheel_link" />
-        <axis xyz="0 -1 0" />
+        <axis xyz="0 0 -1" />
     </joint>
 
     <!-- Left Wheel -->
     <link name="leftwheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="3.14 0 0" />
-            <geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- <geometry>
                 <mesh scale="0.01 0.01 0.01"
                     filename="${path_meshes}/rightwheel1.stl" />
+            </geometry> -->
+            <geometry>
+                <cylinder radius="0.082" length="0.06"/>
             </geometry>
             <material name="black">
             </material>
         </visual>
-        <collision>
+        <!-- <collision>
             <origin xyz="0 0.03 0" rpy="1.5708 0 0" />
             <geometry>
                 <cylinder radius="0.082" length="0.06"/>
             </geometry>
-        </collision>
+        </collision> -->
         <xacro:inertial_box mass="1.0582" x="-2.4286E-17" y="-0.033904" z="4.1633E-17">
             <origin xyz="-2.4286E-17 -0.033904 4.1633E-17" rpy="0 0 0" />
         </xacro:inertial_box>
@@ -106,29 +115,32 @@
 
     <!-- Left Wheel Joint -->
     <joint name="leftwheel_joint" type="continuous">
-        <origin xyz="-0.12418 -0.185 -0.063" rpy="0 0 -3.1416" />
+        <origin xyz="-0.12418 -0.185 -0.063" rpy="-${M_PI/2} 0 0" />
         <parent link="base_link" />
         <child link="leftwheel_link" />
-        <axis xyz="0 1 0" />
+        <axis xyz="0 0 1" />
     </joint>
 
     <!-- Caster Wheel -->
     <link name="casterwheel_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <geometry>
+            <!-- <geometry>
                 <mesh scale="${scale_ratio} ${scale_ratio} ${scale_ratio}"
                     filename="${path_meshes}/casterwheel.stl" />
+            </geometry> -->
+            <geometry>
+                <cylinder radius="0.04" length="0.02"/>
             </geometry>
             <material name="blue">
             </material>
         </visual>
-        <collision>
+        <!-- <collision>
             <origin xyz="0 0 0" rpy="1.5708 0 0" />
             <geometry>
                 <cylinder radius="0.04" length="0.02"/>
             </geometry>
-        </collision>
+        </collision> -->
         <xacro:inertial_box mass="0.10255" x="-0.0032546" y="0.0053327" z="0.013127">
             <origin xyz="-0.0032546 0.0053327 0.013127" rpy="0 0 0" />
         </xacro:inertial_box>

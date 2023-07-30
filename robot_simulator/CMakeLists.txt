@@ -8,15 +8,15 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(robot_state_publisher REQUIRED)
-find_package(ros_ign_interfaces QUIET)
+find_package(ros_gz_interfaces REQUIRED)
 
-if(NOT ros_ign_interfaces_FOUND)
-  message(WARNING "ros_ign_interfaces not found. Skipping ${PROJECT_NAME} package.")
-  ament_package()
-  return()
-endif()
+# if(NOT ros_ign_interfaces_FOUND)
+#   message(WARNING "ros_ign_interfaces not found. Skipping ${PROJECT_NAME} package.")
+#   ament_package()
+#   return()
+# endif()
 
-install(DIRECTORY launch
+install(DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME}
 )
 

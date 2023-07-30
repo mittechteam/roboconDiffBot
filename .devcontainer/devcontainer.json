@@ -3,7 +3,6 @@
 	"name": "MTT ROS2 Development",
 	"image": "ghcr.io/mittechteam/humble-garden:latest",
 	"runArgs": [
-		"--network=host",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt=seccomp:unconfined",
 		"--security-opt=apparmor:unconfined",
@@ -14,7 +13,7 @@
 		"--name=mtt_ros2_dev"
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/ros2_ws/src,type=bind",
-	"workspaceFolder": "/ros2_ws/src",
+	"workspaceFolder": "/ros2_ws/src/",
 	"containerEnv": {
 		// "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
 		// "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
@@ -49,7 +48,8 @@
 				"streetsidesoftware.code-spell-checker",
 				"twxs.cmake",
 				"yzhang.markdown-all-in-one",
-				"zachflower.uncrustify"
+				"zachflower.uncrustify",
+				"github.copilot"
 			]
 		}
 	}

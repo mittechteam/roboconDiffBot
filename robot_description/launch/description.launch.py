@@ -5,7 +5,6 @@ from launch.substitutions import (
     Command,
     LaunchConfiguration,
     PathJoinSubstitution,
-    PythonExpression,
 )
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -36,14 +35,6 @@ def generate_launch_description():
     robot_xacro_urdf_path = PathJoinSubstitution(
         [FindPackageShare("robot_description"), "urdf", "robot.urdf.xacro"]
     )
-    robot_urdf_path = PathJoinSubstitution(
-        [FindPackageShare("robot_description"), "urdf", "robot.urdf"]
-    )
-    # urdf_path = os.path.join(
-    #     FindPackageShare("robot_description"), "urdf/robot.urdf"
-    # )
-    # with open(urdf_path, "r") as file:
-    #     urdf_file = file.read()
 
     # ------------------------------------------
     # ----------------- Nodes ------------------
@@ -80,6 +71,6 @@ def generate_launch_description():
 
     ld = LaunchDescription(ARGUMENTS)
     ld.add_action(robot_state_pub)
-    ld.add_action(joint_state_publisher_gui_node)
-    ld.add_action(joint_state_publisher_node)
+    # ld.add_action(joint_state_publisher_gui_node)
+    # ld.add_action(joint_state_publisher_node)
     return ld

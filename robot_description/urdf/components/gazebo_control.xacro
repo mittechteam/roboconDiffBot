@@ -2,36 +2,43 @@
 <robot name="robot_wheels"
     xmlns:xacro="http://www.ros.org/wiki/xacro">
 <gazebo>
-    <plugin name="ignition::gazebo::systems::DiffDrive" filename="libignition-gazebo-diff-drive-system.so">
-
-        <left_joint>leftwheel_joint</left_joint>
-        <right_joint>rightwheel_joint</right_joint>
-        <wheel_separation>0.255</wheel_separation>
-        <wheel_diameter>0.066</wheel_diameter>
-
-        <!--limits-->
-        <max_wheel_torque>200</max_wheel_torque>
-        <max_wheel_acceleration>10.0</max_wheel_acceleration>
-
-        <!--outputs-->
-        <odometry_frame>odom</odometry_frame>
-        <robot_base_frame>base_footprint</robot_base_frame>
-
-        <publish_wheel_tf>true</publish_wheel_tf>
-        <publish_odom_tf>true</publish_odom_tf>
-        <publish_odom>false</publish_odom>
-        <publish_wheel_joint_state>true</publish_wheel_joint_state>
-        <topic>cmd_vel</topic>
+    <plugin
+        filename="gz-sim-diff-drive-system"
+        name="gz::sim::systems::DiffDrive">
+        <left_joint>left_wheel_joint</left_joint>
+        <right_joint>right_wheel_joint</right_joint>
+        <wheel_separation>0.35</wheel_separation>
+        <wheel_radius>0.05</wheel_radius>
+        <odom_publish_frequency>1</odom_publish_frequency>
+        <max_linear_acceleration>1</max_linear_acceleration>
+        <min_linear_acceleration>-1</min_linear_acceleration>
+        <max_angular_acceleration>2</max_angular_acceleration>
+        <min_angular_acceleration>-2</min_angular_acceleration>
+        <max_linear_velocity>0.5</max_linear_velocity>
+        <min_linear_velocity>-0.5</min_linear_velocity>
+        <max_angular_velocity>1</max_angular_velocity>
+        <min_angular_velocity>-1</min_angular_velocity>
+        
     </plugin>
-    <!-- <plugin name='joint_state_publisher' filename='libgazebo_ros_joint_state_publisher.so'>
-        <jointName>leftwheel_joint</jointName>
-        <jointName>rightwheel_joint</jointName>
-        <update_rate>50.0</update_rate>
-        <alwaysOn>true</alwaysOn>
-    </plugin> -->
-    <!-- Joint states plugin -->
-    <plugin name="ignition::gazebo::systems::JointStatePublisher" 
-        filename="libignition-gazebo-joint-state-publisher-system.so">
+    <plugin
+        filename="gz-sim-joint-state-publisher-system"
+        name="gz::sim::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin
+        filename="gz-sim-pose-publisher-system"
+        name="gz::sim::systems::PosePublisher">
+        <publish_link_pose>true</publish_link_pose>
+        <use_pose_vector_msg>true</use_pose_vector_msg>
+        <static_publisher>true</static_publisher>
+        <static_update_frequency>1</static_update_frequency>
+    </plugin>
+
+    <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>diff_drive/odom</odom_frame>
+        <robot_base_frame>base_link</robot_base_frame>
     </plugin>
 </gazebo>
 
