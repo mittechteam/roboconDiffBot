@@ -14,10 +14,9 @@
 #
 # @author Rahul Katiyar
 
-
+from gazebo_assets.bridges import bridges as gz_bridges
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 ARGUMENTS = [
@@ -39,42 +38,22 @@ def generate_launch_description():
     # '    [  == a bridge from Gazebo to ROS,\n'
     # '    ]  == a bridge from ROS to Gazebo.\n'
     # '  parameter_bridge [<topic@ROS2_type@Ign_type> ..] '
+    bridges = []
 
-    # cmd_vel bridge
+    # Get robot name from launch config in string format
+    # robot_name_str = LaunchConfiguration('robot_name')
+
+    bridges.append(gz_bridges.clock())
+    bridges.append(gz_bridges.cmd_vel('mtt_robot'))
+
     ros__gazebo_bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
+        namespace='world',
         output='screen',
-        namespace='',
-        arguments=[
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
-            '/cmd_vel@geometry_msgs/msg/Twist]gz.geometry_msgs.Twist',
-            '/world/',
-            LaunchConfiguration('world'),
-            '/model/',
-            LaunchConfiguration('robot_name'),
-            '/joint_state',
-            '@sensor_msgs/msg/JointState[gz.sensor_msgs.JointState',
-            '/model/',
-            LaunchConfiguration('robot_name'),
-            '/pose',
-            '@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V',
-        ],
-        remappings=[
-            ('/cmd_vel', '/cmd_vel'),
-            (
-                [
-                    '/world/',
-                    LaunchConfiguration('world'),
-                    '/model/',
-                    LaunchConfiguration('robot_name'),
-                    '/joint_state',
-                ],
-                '/joint_states',
-            ),
-        ],
+        arguments=[bridge.argument() for bridge in bridges],
+        remappings=[bridge.remapping() for bridge in bridges],
     )
-
     # Define LaunchDescription variable
     ld = LaunchDescription(ARGUMENTS)
     ld.add_action(ros__gazebo_bridge)

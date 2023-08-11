@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(robot_state_publisher REQUIRED)
 find_package(ros_gz_interfaces REQUIRED)
+find_package(gazebo_assets REQUIRED)
 
 # if(NOT ros_ign_interfaces_FOUND)
 #   message(WARNING "ros_ign_interfaces not found. Skipping ${PROJECT_NAME} package.")
