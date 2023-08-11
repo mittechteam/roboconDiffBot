@@ -87,7 +87,8 @@ def simulation(
 
 
 def launch_simulation(context: LaunchContext):
-    """Return processes needed for launching the simulation.
+    """
+    Return processes needed for launching the simulation.
 
     Simulator + Spawning Models + Bridges.
     """
