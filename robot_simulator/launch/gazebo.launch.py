@@ -16,7 +16,7 @@ ARGUMENTS = [
         description='use_sim_time',
     ),
     DeclareLaunchArgument(
-        'world', default_value='empty', description='Game field to load'
+        'world_name', default_value='empty', description='Game field to load'
     ),
     DeclareLaunchArgument(
         'robot_name', default_value='mtt_robot', description='Robot name'
@@ -92,7 +92,7 @@ def launch_simulation(context: LaunchContext):
 
     Simulator + Spawning Models + Bridges.
     """
-    world_to_load = LaunchConfiguration('world').perform(context)
+    world_to_load = LaunchConfiguration('world_name').perform(context)
     gui_config_file = LaunchConfiguration('gui_config_file').perform(context)
     headless = LaunchConfiguration('headless').perform(context)
     headless = headless.lower() in ['true', 't', 'yes', 'y', '1']
@@ -123,6 +123,8 @@ def generate_launch_description():
             os.path.join(get_package_prefix('robot_description'), 'share'),
             ':',
             PathJoinSubstitution([pkg_robot_worlds, 'models']),
+            ':',
+            PathJoinSubstitution([pkg_robot_worlds, 'meshes']),
         ],
     )
 
@@ -154,7 +156,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([robot_ros_gz_bridge_path]),
         launch_arguments=[
             ('use_sim_time', LaunchConfiguration('use_sim_time')),
-            ('world', LaunchConfiguration('world')),
+            ('world_name', LaunchConfiguration('world_name')),
             ('robot_name', LaunchConfiguration('robot_name')),
         ],
     )
